@@ -7,9 +7,10 @@ import { Calendar as CalendarIcon, Flame } from 'lucide-react';
 interface HomeProps {
   habits: Habit[];
   onToggleHabit: (id: string, dateStr: string) => void;
+  onDeleteHabit: (id: string) => void;
 }
 
-const Home: React.FC<HomeProps> = ({ habits, onToggleHabit }) => {
+const Home: React.FC<HomeProps> = ({ habits, onToggleHabit, onDeleteHabit }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const selectedDateISO = formatDate(selectedDate);
@@ -112,7 +113,8 @@ const Home: React.FC<HomeProps> = ({ habits, onToggleHabit }) => {
             <HabitCard 
                 key={habit.id} 
                 habit={{...habit, streak: calculateStreak(habit.history)}} 
-                onToggle={() => onToggleHabit(habit.id, selectedDateISO)} 
+                onToggle={() => onToggleHabit(habit.id, selectedDateISO)}
+                onDelete={() => onDeleteHabit(habit.id)}
                 isCompletedToday={habit.history.includes(selectedDateISO)}
                 isDisabled={isFutureDate}
             />
