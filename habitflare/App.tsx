@@ -84,6 +84,10 @@ const App: React.FC = () => {
       return { ...h, history: newHistory };
     }));
   };
+  
+  const handleDeleteHabit = (id: string) => {
+  setHabits(prevHabits => prevHabits.filter(h => h.id !== id));
+  };
 
   const handleUpdateSettings = (newSettings: Partial<UserSettings>) => {
     setSettings(prev => ({ ...prev, ...newSettings }));
@@ -114,6 +118,7 @@ const App: React.FC = () => {
             <Home 
                 habits={habits} 
                 onToggleHabit={handleToggleHabit} 
+                onDeleteHabit={handleDeleteHabit}
             />
         )}
         {view === 'add-habit' && (
